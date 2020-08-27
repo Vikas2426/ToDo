@@ -1,7 +1,7 @@
 {
   "name": "todo-app-react",
   "version": "0.1.0",
-  "homepage": "http://Vikas2426.github.io/ToDoFullStack",
+  "homepage": "http://Vikas2426.github.io/ToDo",
   "private": true,
   "dependencies": {
     "react": "^16.13.1",
