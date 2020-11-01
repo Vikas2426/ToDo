@@ -26,6 +26,7 @@
 // export default InputField;
 
 import React from 'react';
+import './InputField.css';
 
 const InputField = (props) => {
 
@@ -42,9 +43,22 @@ const InputField = (props) => {
     }
     return (
         <form>
-            <input type='text' placeholder='New To-Do' onChange={handleChange} autoFocus></input>
-            <button type='submit' onClick={handleClick} onSubmit={handleClick} id='add-btn'>+</button>
-        </form>
+            <input
+                type='text'
+                placeholder='New To-Do'
+                onChange={handleChange}
+                autoFocus
+                required
+            />
+            <button
+                className="btn-floating btn-large waves-effect waves-light blue"
+                type='submit'
+                onClick={handleClick}
+                onSubmit={handleClick}
+                id='add-btn'>
+                <i className="material-icons">add</i>
+            </button>
+        </form >
     )
 }
 
