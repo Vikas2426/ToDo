@@ -16,14 +16,58 @@
   overflow-wrap: break-word;
 }
 
+.collection-item{
+  display:flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-field{
+  border-top: 2px solid lightgrey;
+}
+
+.drag-icon-container{
+  margin-right: 3%;
+  margin-left: -1%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:0.5%;
+  /* margin-top: 2%; */
+}
+
+.drag-icon{
+  height: 100%;
+  width: 100%;
+}
+
 @media (min-width: 700px) {
   .collection {
     min-width: 40vw;
+  }
+
+  .drag-icon-container{
+    margin-left: -1%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:0.5%;
+    /* margin-top: 2%; */
+  }
+  
+  .drag-icon{
+    height: 100%;
+    width: 100%;
   }
 }
 
 @media (max-width: 699px) {
   .collection {
     width: 95vw;
+  }
+  .drag-icon-container{
+    margin-left: -5%;
+  padding:5%;
+
   }
 }
