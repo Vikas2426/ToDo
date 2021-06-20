@@ -2,16 +2,12 @@ import React, { useState, useEffect } from 'react';
 import ToDos from './ToDos.jsx'
 import InputField from './InputField.jsx'
 import './ToDoList.css';
-
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 
 const ToDoList = props => {
     const [toDoList, setToDoList] = useState([]);
     let URL = 'https://secret-shelf-76542.herokuapp.com/todos/';
-    // let URL = 'http://localhost:5000/todos/';
-
-
-
 
     const addToList = async (newContent) => {
         setToDoList(await fetch(URL, {
@@ -21,8 +17,6 @@ const ToDoList = props => {
             },
             body: JSON.stringify({ 'content': newContent, 'dateTime': new Date().toLocaleString() }),
         }).then(response => response.json()));
-        // getToDoList();
-        // setToDoList(prevValues => [...prevValues, { content: newContent, date: newDate }]);
 
     };
     const removeFromList = async id => {
@@ -33,13 +27,10 @@ const ToDoList = props => {
             },
             body: JSON.stringify({ '_id': id }),
         }).then(response => response.json()));
-        // getToDoList();
-        // setToDoList(prevValues => prevValues.filter((todo, index) => index !== id));
     };
 
     useEffect(() => {
         const getToDoList = async () => {
-
             setToDoList(await fetch('https://secret-shelf-76542.herokuapp.com/todos/').then(response => response.json()));
         }
         getToDoList();
@@ -47,10 +38,6 @@ const ToDoList = props => {
 
     return (
         <div className="todo-input-list">
-            {/* <div style={{ marginTop: '5em' }}>
-                <InputField addNewItem={addToList} />
-            </div> */}
-
             <ul className="collection with-header">
                 <li className="collection-header"><h5>To-Dos</h5></li>
                 {toDoList.map((todo, index) =>
