@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ToDos from './ToDos.jsx'
 import InputField from './InputField.jsx'
 import './ToDoList.css';
@@ -7,7 +7,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const ToDoList = props => {
     const [toDoList, setToDoList] = useState([]);
-    const [modifList, setModifList] = useState([]);
+    const dbList = useRef([]);
 
     const URL = 'https://secret-shelf-76542.herokuapp.com/todos/';
     const headers = {
@@ -36,32 +36,30 @@ const ToDoList = props => {
             return;
         }
         const items = reorder([...toDoList], result.source.index, result.destination.index,);
+        toDoList.forEach(item => removeFromList(item._id));
         setToDoList(items);
+        toDoList.forEach(item => addToDB(item.content));
     }
 
     const addToList = (content) => {
         setToDoList([...toDoList, { _id: 'tempId' + content, content, dateTime: new Date().toLocaleString() }])
+        addToDB(content);
     }
 
     const removeFromList = (id) => {
         setToDoList(toDoList.filter(item => item._id !== id));
+        removeFromDB(id);
     }
 
-    const updateDB = () => {
-        modifList.forEach(item => removeFromDB(item._id));
-        toDoList.forEach(item => addToDB(item.content));
-    }
+
 
     useEffect(() => {
         const getToDoList = async () => {
             const response = await fetch(URL);
             const list = await response.json();
-            setModifList(list);
             setToDoList(list);
         }
         getToDoList();
-        // window.addEventListener("beforeunload", updateDB);
-
     }, []);
 
     return (
